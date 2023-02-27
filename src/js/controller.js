@@ -5,6 +5,18 @@ import 'regenerator-runtime/runtime';
 
 const recipeContainer = document.querySelector('.recipe');
 
+const showSpinner = function (parentEl) {
+  const html = `
+      <div class="spinner">
+        <svg>
+          <use href="${icons}#icon-loader"></use>
+        </svg>
+      </div>
+  `;
+  parentEl.innerHTML = '';
+  parentEl.insertAdjacentHTML('afterbegin', html);
+};
+
 const getRecipe = async function () {
   try {
     // 1. Loading Recipe
@@ -137,6 +149,8 @@ const getRecipe = async function () {
     alert(error);
   }
 };
+
+['load', 'hashchange'].forEach(ev => window.addEventListener(ev, getRecipe));
 
 const timeout = function (s) {
   return new Promise(function (_, reject) {
