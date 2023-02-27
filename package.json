@@ -1,0 +1,22 @@
+{
+  "name": "forkify-app",
+  "version": "1.0.0",
+  "description": "A web app that lists recipes that you search and bookmarks your fav recipes and lets you add your own recipes.",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "author": "Hanzla Saadi",
+  "license": "ISC",
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.8.3",
+    "parcel": "^2.0.0",
+    "process": "^0.11.10",
+    "sass": "^1.26.10"
+  },
+  "dependencies": {
+    "core-js": "^3.29.0",
+    "regenerator-runtime": "^0.13.11"
+  }
+}
