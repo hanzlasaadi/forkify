@@ -2,7 +2,6 @@
   "name": "forkify-app",
   "version": "1.0.0",
   "description": "A web app that lists recipes that you search and bookmarks your fav recipes and lets you add your own recipes.",
-  "main": "index.js",
   "scripts": {
     "start": "parcel index.html",
     "build": "parcel build index.html"

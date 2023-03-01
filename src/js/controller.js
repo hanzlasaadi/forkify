@@ -4,7 +4,7 @@ import { async } from 'regenerator-runtime';
 import * as model from './model.js';
 import recipeView from './views.js';
 
-const recipeContainer = document.querySelector('.recipe');
+// const recipeContainer = document.querySelector('.recipe');
 
 const controlRecipe = async function () {
   try {
@@ -23,7 +23,7 @@ const controlRecipe = async function () {
     //markup
   } catch (error) {
     // console.error(error);
-    alert(error);
+    console.error(error);
   }
 };
 
