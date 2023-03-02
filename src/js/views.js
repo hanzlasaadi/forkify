@@ -5,6 +5,9 @@ import { Fraction } from 'fractional';
 class RecipeView {
   #parentElement = document.querySelector('.recipe');
   #data;
+  #errMsg =
+    "We could'nt find that recipe. Please fix your brain and write a valid one, you fucker!";
+  #okMsg = '';
 
   addHandlerRender(callback) {
     ['load', 'hashchange'].forEach(ev => window.addEventListener(ev, callback));
@@ -16,23 +19,59 @@ class RecipeView {
     const html = this.#markup();
 
     this.#clear();
-    this.#parentElement.insertAdjacentHTML('afterbegin', html);
+    this.#insert(html);
   }
 
   renderSpinner() {
     const html = `
-            <div class="spinner">
-              <svg>
-                <use href="${icons}#icon-loader"></use>
-              </svg>
-            </div>
-        `;
+      <div class="spinner">
+        <svg>
+          <use href="${icons}#icon-loader"></use>
+        </svg>
+      </div>
+     `;
     this.#clear();
-    this.#parentElement.insertAdjacentHTML('afterbegin', html);
+    this.#insert(html);
+  }
+
+  renderErr(msg = this.#errMsg) {
+    const markup = `
+      <div class="error">
+        <div>
+          <svg>
+            <use href="${icons}#icon-alert-triangle"></use>
+          </svg>
+        </div>
+        <p>${msg}</p>
+      </div>
+    `;
+
+    this.#clear();
+    this.#insert(markup);
+  }
+
+  renderMsg(msg = this.#okMsg) {
+    const markup = `
+      <div class="message">
+        <div>
+          <svg>
+            <use href="${icons}#icon-smile"></use>
+          </svg>
+        </div>
+        <p>${msg}</p>
+      </div>
+    `;
+
+    this.#clear();
+    this.#insert(markup);
   }
 
   #clear() {
     this.#parentElement.innerHTML = '';
+  }
+
+  #insert(html) {
+    this.#parentElement.insertAdjacentHTML('afterbegin', html);
   }
 
   #markup() {
@@ -122,7 +161,6 @@ class RecipeView {
   }
 
   #markupIngredients(ing) {
-    console.log(ing.quantity, 'fuck ');
     return `
       <li class="recipe__ingredient">
         <svg class="recipe__icon">

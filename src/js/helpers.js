@@ -17,6 +17,7 @@ export const getJson = async function (url) {
 
     return data;
   } catch (err) {
+    // console.error(err, 'Helper.js');
     throw `${err} 💣💣💣`;
   }
 };

@@ -23,7 +23,8 @@ const controlRecipe = async function () {
     //markup
   } catch (error) {
     // console.error(error);
-    console.error(error);
+    // console.error(error, 'Controller');
+    recipeView.renderErr();
   }
 };
 
