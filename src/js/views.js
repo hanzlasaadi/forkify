@@ -6,6 +6,10 @@ class RecipeView {
   #parentElement = document.querySelector('.recipe');
   #data;
 
+  addHandlerRender(callback) {
+    ['load', 'hashchange'].forEach(ev => window.addEventListener(ev, callback));
+  }
+
   render(data) {
     this.#data = data;
 
@@ -118,6 +122,7 @@ class RecipeView {
   }
 
   #markupIngredients(ing) {
+    console.log(ing.quantity, 'fuck ');
     return `
       <li class="recipe__ingredient">
         <svg class="recipe__icon">
