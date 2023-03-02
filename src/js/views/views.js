@@ -1,4 +1,4 @@
-import icons from '../img/icons.svg';
+import icons from '../../img/icons.svg';
 import { mark } from 'regenerator-runtime';
 import { Fraction } from 'fractional';
 
