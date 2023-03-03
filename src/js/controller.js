@@ -34,7 +34,8 @@ const controlSearch = async function (query) {
   try {
     // loading search results asyncly
     await model.loadSearchResults(query);
-    console.log(model.state.search.results);
+    const results = model.state.search.results;
+    console.log(results.length ? results : 'You fucked up!!!');
   } catch (error) {
     recipeView.renderErr(error);
   }
