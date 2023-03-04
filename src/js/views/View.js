@@ -1,7 +1,20 @@
 import icons from '../../img/icons.svg';
 
 export default class View {
+  _data;
+
+  _clear() {
+    this._parentElement.innerHTML = '';
+  }
+
+  _insert(html) {
+    this._parentElement.insertAdjacentHTML('afterbegin', html);
+  }
+
   render(data) {
+    if (!data || (Array.isArray(data) && data.length === 0))
+      return this.renderErr();
+
     this._data = data;
 
     const html = this._markup();

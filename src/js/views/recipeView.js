@@ -5,21 +5,12 @@ import View from './View.js';
 
 class RecipeView extends View {
   _parentElement = document.querySelector('.recipe');
-  _data;
   _errMsg =
     "We could'nt find that recipe. Please fix your brain and write a valid one, you fucker!";
   _okMsg = '';
 
   addHandlerRender(callback) {
     ['load', 'hashchange'].forEach(ev => window.addEventListener(ev, callback));
-  }
-
-  _clear() {
-    this._parentElement.innerHTML = '';
-  }
-
-  _insert(html) {
-    this._parentElement.insertAdjacentHTML('afterbegin', html);
   }
 
   _markup() {
