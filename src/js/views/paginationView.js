@@ -6,6 +6,15 @@ class Pagination extends View {
   _parentElement = document.querySelector('.pagination');
   crrPage;
 
+  addHandlerClick(callback) {
+    this._parentElement.addEventListener('click', e => {
+      const btn = e.target.closest('.btn--inline');
+      if (!btn) return;
+      const goToPage = +btn.dataset.goto;
+      callback(goToPage);
+    });
+  }
+
   _markup() {
     const numPages = Math.ceil(this._data.results.length / ResultsPerPage);
     this.crrPage = this._data.page;
@@ -22,13 +31,17 @@ class Pagination extends View {
   }
 
   _genButton(position) {
-    const nextBtn = `<button class="btn--inline pagination__btn--next">
+    const nextBtn = `<button data-goto="${
+      this.crrPage + 1
+    }" class="btn--inline pagination__btn--next">
         <span>Page ${this.crrPage + 1}</span>
         <svg class="search__icon">
             <use href="${icons}#icon-arrow-right"></use>
         </svg>
         </button>`;
-    const prevBtn = `<button class="btn--inline pagination__btn--prev">
+    const prevBtn = `<button data-goto="${
+      this.crrPage - 1
+    }" class="btn--inline pagination__btn--prev">
         <svg class="search__icon">
             <use href="${icons}#icon-arrow-left"></use>
         </svg>
