@@ -6,6 +6,7 @@ import * as model from './model.js';
 import recipeView from './views/recipeView.js';
 import searchView from './views/searchView.js';
 import resultsView from './views/resultsView.js';
+import paginationView from './views/paginationView.js';
 
 // if (module.hot) {
 //   module.hot.accept();
@@ -35,10 +36,10 @@ const controlRecipe = async function () {
 
 const controlSearch = async function (query) {
   try {
-    //show spinner
+    //1. show spinner
     resultsView.renderSpinner();
 
-    // loading search results asyncly
+    //2. loading search results asyncly
     await model.loadSearchResults(query);
 
     /*
@@ -47,8 +48,11 @@ const controlSearch = async function (query) {
     console.log(results.length ? 'Gooood!' : 'You fucked up!!!');
     */
 
-    //rendering results as HTML
+    //3. rendering results as HTML
     resultsView.render(model.displayResultsPerPage());
+
+    //4. Pagination buttons rendering
+    paginationView.render(model.state.search);
   } catch (error) {
     recipeView.renderErr(error);
   }
