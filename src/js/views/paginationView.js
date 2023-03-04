@@ -22,36 +22,26 @@ class Pagination extends View {
   }
 
   _genButton(position) {
+    const nextBtn = `<button class="btn--inline pagination__btn--next">
+        <span>Page ${this.crrPage + 1}</span>
+        <svg class="search__icon">
+            <use href="${icons}#icon-arrow-right"></use>
+        </svg>
+        </button>`;
+    const prevBtn = `<button class="btn--inline pagination__btn--prev">
+        <svg class="search__icon">
+            <use href="${icons}#icon-arrow-left"></use>
+        </svg>
+        <span>Page ${this.crrPage - 1}</span>
+        </button>`;
+
     switch (position) {
       case 'first':
-        return `
-          <button class="btn--inline pagination__btn--next">
-          <span>Page ${this.crrPage + 1}</span>
-          <svg class="search__icon">
-              <use href="${icons}#icon-arrow-right"></use>
-          </svg>
-          </button>`;
+        return nextBtn;
       case 'last':
-        return `<button class="btn--inline pagination__btn--prev">
-              <svg class="search__icon">
-                  <use href="${icons}#icon-arrow-left"></use>
-              </svg>
-              <span>Page ${this.crrPage - 1}</span>
-          </button>`;
+        return prevBtn;
       case 'middle':
-        return `
-          <button class="btn--inline pagination__btn--prev">
-              <svg class="search__icon">
-                  <use href="${icons}#icon-arrow-left"></use>
-              </svg>
-              <span>Page ${this.crrPage - 1}</span>
-          </button>
-          <button class="btn--inline pagination__btn--next">
-              <span>Page ${this.crrPage + 1}</span>
-              <svg class="search__icon">
-                  <use href="${icons}#icon-arrow-right"></use>
-              </svg>
-          </button>`;
+        return prevBtn + nextBtn;
       default:
         return '';
     }
