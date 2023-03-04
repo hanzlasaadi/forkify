@@ -7,9 +7,9 @@ import recipeView from './views/recipeView.js';
 import searchView from './views/searchView.js';
 import resultsView from './views/resultsView.js';
 
-if (module.hot) {
-  module.hot.accept();
-}
+// if (module.hot) {
+//   module.hot.accept();
+// }
 
 const controlRecipe = async function () {
   try {
@@ -41,11 +41,14 @@ const controlSearch = async function (query) {
     // loading search results asyncly
     await model.loadSearchResults(query);
 
+    /*
     // getting results from the state
     const results = model.state.search.results;
-    //rendering results as HTML
-    resultsView.render(results);
     console.log(results.length ? 'Gooood!' : 'You fucked up!!!');
+    */
+
+    //rendering results as HTML
+    resultsView.render(model.displayResultsPerPage());
   } catch (error) {
     recipeView.renderErr(error);
   }
