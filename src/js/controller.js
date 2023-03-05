@@ -49,7 +49,7 @@ const controlSearch = async function (query) {
     */
 
     //3. rendering results as HTML
-    resultsView.render(model.displayResultsPerPage(3));
+    resultsView.render(model.displayResultsPerPage(1));
 
     //4. Pagination buttons rendering
     paginationView.render(model.state.search);
@@ -66,8 +66,23 @@ const controlPagination = function (goToPage) {
   paginationView.render(model.state.search);
 };
 
+const controlServings = function (serves) {
+  //1. check wheter to increment or decrement servings
+  const newServe =
+    serves === '+'
+      ? model.state.recipe.servings + 1
+      : model.state.recipe.servings - 1;
+
+  //2. update state based on the new servings
+  model.updateServings(newServe);
+
+  //3. update recipeView according to state data
+  recipeView.render(model.state.recipe);
+};
+
 function init() {
   recipeView.addHandlerRender(controlRecipe);
+  recipeView.addHandlerServings(controlServings);
   searchView.addHandlerSearch(controlSearch);
   paginationView.addHandlerClick(controlPagination);
 }

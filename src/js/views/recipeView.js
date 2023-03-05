@@ -13,6 +13,16 @@ class RecipeView extends View {
     ['load', 'hashchange'].forEach(ev => window.addEventListener(ev, callback));
   }
 
+  addHandlerServings(callback) {
+    this._parentElement.addEventListener('click', e => {
+      const btn = e.target.closest('.btn--tiny');
+      if (!btn) return;
+      console.log(btn);
+      if (btn.classList.contains('btn--decrease-servings')) callback('-');
+      if (btn.classList.contains('btn--increase-servings')) callback('+');
+    });
+  }
+
   _markup() {
     return `
         <figure class="recipe__fig">
@@ -42,7 +52,7 @@ class RecipeView extends View {
             <span class="recipe__info-text">servings</span>
 
             <div class="recipe__info-buttons">
-              <button class="btn--tiny btn--increase-servings">
+              <button class="btn--tiny btn--decrease-servings">
                 <svg>
                   <use href="${icons}#icon-minus-circle"></use>
                 </svg>
