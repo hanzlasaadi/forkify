@@ -17,9 +17,9 @@ class RecipeView extends View {
     this._parentElement.addEventListener('click', e => {
       const btn = e.target.closest('.btn--tiny');
       if (!btn) return;
-      console.log(btn);
-      if (btn.classList.contains('btn--decrease-servings')) callback('-');
-      if (btn.classList.contains('btn--increase-servings')) callback('+');
+      let newServe = +btn.dataset.update;
+      if (newServe < 0) return;
+      callback(newServe);
     });
   }
 
@@ -52,12 +52,16 @@ class RecipeView extends View {
             <span class="recipe__info-text">servings</span>
 
             <div class="recipe__info-buttons">
-              <button class="btn--tiny btn--decrease-servings">
+              <button class="btn--tiny btn--decrease-servings" data-update="${
+                this._data.servings - 1
+              }">
                 <svg>
                   <use href="${icons}#icon-minus-circle"></use>
                 </svg>
               </button>
-              <button class="btn--tiny btn--increase-servings">
+              <button class="btn--tiny btn--increase-servings" data-update="${
+                this._data.servings + 1
+              }">
                 <svg>
                   <use href="${icons}#icon-plus-circle"></use>
                 </svg>

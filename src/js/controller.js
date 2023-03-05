@@ -67,16 +67,10 @@ const controlPagination = function (goToPage) {
 };
 
 const controlServings = function (serves) {
-  //1. check wheter to increment or decrement servings
-  const newServe =
-    serves === '+'
-      ? model.state.recipe.servings + 1
-      : model.state.recipe.servings - 1;
+  //1. update state based on the new servings
+  model.updateServings(serves);
 
-  //2. update state based on the new servings
-  model.updateServings(newServe);
-
-  //3. update recipeView according to state data
+  //2. update recipeView according to state data
   recipeView.render(model.state.recipe);
 };
 
