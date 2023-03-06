@@ -14,13 +14,16 @@ import paginationView from './views/paginationView.js';
 
 const controlRecipe = async function () {
   try {
-    // 1. Loading Recipe
     const id = window.location.hash.slice(1);
     if (!id) return;
 
     //showing spinner
     recipeView.renderSpinner();
-    // loadrecipe
+
+    // 0. activating selected recipe
+    resultsView.update(model.displayResultsPerPage());
+
+    // 1. Loading Recipe
     await model.loadRecipe(id);
 
     // 2. Rendering Recipe
@@ -49,7 +52,7 @@ const controlSearch = async function (query) {
     */
 
     //3. rendering results as HTML
-    resultsView.render(model.displayResultsPerPage(1));
+    resultsView.render(model.displayResultsPerPage());
 
     //4. Pagination buttons rendering
     paginationView.render(model.state.search);
