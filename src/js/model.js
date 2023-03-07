@@ -39,6 +39,9 @@ export const loadRecipe = async function (id) {
 
 export const loadSearchResults = async function (query) {
   try {
+    // setting page # to one when new results are loaded
+    state.search.page = 1;
+
     // ajax call for search results
     const data = await getJson(`${API_URL}?search=${query}`);
 
