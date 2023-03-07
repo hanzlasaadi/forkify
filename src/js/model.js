@@ -9,6 +9,7 @@ export const state = {
     page: 1,
     results: [],
   },
+  bookmarks: [],
 };
 
 export const loadRecipe = async function (id) {
@@ -30,7 +31,11 @@ export const loadRecipe = async function (id) {
       title: recipe.title,
       ingredients: recipe.ingredients,
     };
-    console.log(state.recipe);
+
+    //it checks the current recipe against the recipes in the bookmarks array and set the BOOKMARKED value to true.
+    state.recipe.bookmarked = state.bookmarks.some(
+      bookmark => bookmark.id === id
+    );
   } catch (err) {
     // console.error(err, 'Model.js');
     throw err;
@@ -77,4 +82,20 @@ export const updateServings = function (newServings) {
   });
 
   state.recipe.servings = newServings;
+};
+
+export const addBookmark = function (recipe) {
+  //add Current recipe to bookmarks array
+  state.bookmarks.push(recipe);
+
+  //the recipe must have the booleaan bookmarkes value set to true
+  if (recipe.id === state.recipe.id) state.recipe.bookmarked = true;
+};
+
+export const deleteBookmark = function (id) {
+  const index = state.bookmarks.findIndex(rec => rec.id === id);
+
+  state.bookmarks.splice(index, 1);
+
+  if (id === state.recipe.id) state.recipe.bookmarked = false;
 };
