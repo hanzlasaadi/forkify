@@ -7,6 +7,10 @@ class BookmarksView extends View {
   _errMsg = 'Have a nice little fuck and add some motherfucking bookmarks!!!';
   _okMsg = '';
 
+  addHandlerBookmark(callback) {
+    addEventListener('load', callback);
+  }
+
   _markup() {
     return this._data
       .map(bookmark => previewView.render(bookmark, false))
