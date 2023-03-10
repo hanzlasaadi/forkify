@@ -7,6 +7,7 @@ import recipeView from './views/recipeView.js';
 import searchView from './views/searchView.js';
 import resultsView from './views/resultsView.js';
 import paginationView from './views/paginationView.js';
+import bookmarksView from './views/bookmarksView.js';
 
 // if (module.hot) {
 //   module.hot.accept();
@@ -20,8 +21,9 @@ const controlRecipe = async function () {
     //showing spinner
     recipeView.renderSpinner();
 
-    // 0. activating selected recipe
+    // 0. ACTIVATING selected recipe in resultsView & bookmarksView
     resultsView.update(model.displayResultsPerPage());
+    bookmarksView.update(model.state.bookmarks);
 
     // 1. Loading Recipe
     await model.loadRecipe(id);
@@ -79,12 +81,15 @@ const controlServings = function (serves) {
 };
 
 const controlBookmarks = function () {
-  console.log(model.state.recipe.bookmarked);
+  //1. add/delete bookmarks
   if (!model.state.recipe.bookmarked) model.addBookmark(model.state.recipe);
   else model.deleteBookmark(model.state.recipe.id);
 
+  //2. update recipe view to show bookmark icon
   recipeView.update(model.state.recipe);
-  console.log(model.state.recipe);
+
+  //3. render bookmarks in the bookmarks list
+  bookmarksView.render(model.state.bookmarks);
 };
 
 function init() {

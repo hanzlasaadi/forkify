@@ -1,4 +1,5 @@
 import View from './View.js';
+import previewView from './previewView.js';
 import icons from '../../img/icons.svg';
 
 class ResultsView extends View {
@@ -8,27 +9,7 @@ class ResultsView extends View {
   _okMsg = '';
 
   _markup() {
-    const id = window.location.hash.slice(1);
-
-    return this._data
-      .map(res => {
-        return `
-        <li class="preview">
-            <a class="preview__link ${
-              id === res.id ? 'preview__link--active' : ''
-            }" href="#${res.id}">
-                <figure class="preview__fig">
-                    <img src="${res.image}" alt="Test" />
-                </figure>
-                <div class="preview__data">
-                    <h4 class="preview__title">${res.title}</h4>
-                    <p class="preview__publisher">${res.publisher}</p>
-                </div>
-            </a>
-        </li>
-        `;
-      })
-      .join('');
+    return this._data.map(res => previewView.render(res, false)).join('');
   }
 }
 
