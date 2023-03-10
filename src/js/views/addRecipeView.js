@@ -29,7 +29,14 @@ class AddRecipeView extends View {
     this._closeBtn.addEventListener('click', this._toggle.bind(this));
   }
 
-  _markup() {}
+  addHandlerSubmit(callback) {
+    this._parentElement.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const dataArr = new FormData(this);
+      const data = Object.fromEntries(dataArr);
+      callback(data);
+    });
+  }
 }
 
 export default new AddRecipeView();
