@@ -116,3 +116,10 @@ const init = function () {
   state.bookmarks = JSON.parse(localData);
 };
 init();
+
+export const uploadRecipe = async function (formData) {
+  try {
+  } catch (err) {
+    throw err.message;
+  }
+};
