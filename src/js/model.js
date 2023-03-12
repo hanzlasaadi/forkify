@@ -23,6 +23,7 @@ const getRecipeFormatted = function (data) {
     sourceUrl: recipe.source_url,
     title: recipe.title,
     ingredients: recipe.ingredients,
+    ...(recipe.key && { key: recipe.key }),
   };
 };
 
@@ -145,7 +146,10 @@ export const uploadRecipe = async function (formData) {
       ingredients,
     };
     const APIData = await sendJson(`${API_URL}?key=${KEY}`, recipe);
-    console.log(APIData);
+
+    state.recipe = getRecipeFormatted(APIData);
+
+    addBookmark(state.recipe);
   } catch (err) {
     throw err;
   }

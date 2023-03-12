@@ -9,6 +9,7 @@ import resultsView from './views/resultsView.js';
 import paginationView from './views/paginationView.js';
 import bookmarksView from './views/bookmarksView.js';
 import addRecipeView from './views/addRecipeView.js';
+import { Model_Close_Sec } from './config.js';
 
 // if (module.hot) {
 //   module.hot.accept();
@@ -100,8 +101,22 @@ const initBookmarks = function () {
 
 const controlAddRecipe = async function (newRecipe) {
   try {
+    //render spinner
+    addRecipeView.renderSpinner();
+
     //upload formData to API
     await model.uploadRecipe(newRecipe);
+
+    //render success message
+    addRecipeView.renderMsg('Recipe was loaded successfully! 😀');
+
+    //render recipe
+    recipeView.render(model.state.recipe);
+
+    //close window
+    setTimeout(() => {
+      addRecipeView.toggle();
+    }, Model_Close_Sec * 1000);
   } catch (err) {
     addRecipeView.renderErr(err.message);
   }
