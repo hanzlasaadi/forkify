@@ -22,7 +22,7 @@ export const getJson = async function (url) {
   }
 };
 
-export const sendJson = async function (url, data) {
+export const sendJson = async function (url, uploadData) {
   try {
     const res = await Promise.race([
       fetch(url, {
@@ -30,7 +30,7 @@ export const sendJson = async function (url, data) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(uploadData),
       }),
       timeout(TIMEOUT_SECS),
     ]);

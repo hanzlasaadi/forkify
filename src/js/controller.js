@@ -99,8 +99,12 @@ const initBookmarks = function () {
 };
 
 const controlAddRecipe = async function (newRecipe) {
-  //upload formData to API
-  await model.uploadRecipe(newRecipe);
+  try {
+    //upload formData to API
+    await model.uploadRecipe(newRecipe);
+  } catch (err) {
+    addRecipeView.renderErr(err.message);
+  }
 };
 
 function init() {

@@ -1,6 +1,6 @@
 import { async } from 'regenerator-runtime';
-import { API_URL, ResultsPerPage } from './config.js';
-import { getJson } from './helpers.js';
+import { API_URL, ResultsPerPage, KEY } from './config.js';
+import { getJson, sendJson } from './helpers.js';
 
 export const state = {
   recipe: {},
@@ -119,7 +119,30 @@ init();
 
 export const uploadRecipe = async function (formData) {
   try {
+    const ingredients = Object.entries(formData)
+      .filter(arr => arr[0].startsWith('ingredient') && arr[1] !== '')
+      .map(ing => {
+        const ingArr = ing[1].replaceAll(' ', '').split(',');
+        if (ingArr.length !== 3)
+          throw new Error(
+            'Ingredient data format is invalid, please fix your retarded brain and use the motherfucking commas in the field.'
+          );
+
+        const [quantity, unit, description] = ingArr;
+        return { quantity: quantity ? +quantity : null, unit, description };
+      });
+    const recipe = {
+      cooking_time: formData.cookingTime,
+      image_url: formData.image,
+      publisher: formData.publisher,
+      servings: formData.servings,
+      source_url: formData.sourceUrl,
+      title: formData.title,
+      ingredients,
+    };
+    const APIData = await sendJson(`${API_URL}?key=${KEY}`, recipe);
+    console.log(APIData);
   } catch (err) {
-    throw err.message;
+    throw err;
   }
 };
