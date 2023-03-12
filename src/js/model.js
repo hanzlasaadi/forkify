@@ -1,6 +1,6 @@
 import { async } from 'regenerator-runtime';
 import { API_URL, ResultsPerPage, KEY } from './config.js';
-import { AJAX } from './helpers.js';
+import { AJAX, getJson } from './helpers.js';
 
 export const state = {
   recipe: {},
@@ -33,7 +33,7 @@ export const loadRecipe = async function (id) {
     // const data = await res.json();
     // if (!res.ok) throw new Error(`${data.message} ${res.status}`);
 
-    const data = await AJAX(`${API_URL}${id}`);
+    const data = await AJAX(`${API_URL}${id}?key=${KEY}`);
 
     state.recipe = getRecipeFormatted(data);
 
@@ -41,6 +41,7 @@ export const loadRecipe = async function (id) {
     state.recipe.bookmarked = state.bookmarks.some(
       bookmark => bookmark.id === id
     );
+    console.log(state.recipe.key);
   } catch (err) {
     // console.error(err, 'Model.js');
     throw err;
@@ -53,7 +54,9 @@ export const loadSearchResults = async function (query) {
     state.search.page = 1;
 
     // ajax call for search results
-    const data = await AJAX(`${API_URL}?search=${query}`);
+    console.log(await getJson());
+    const data = await AJAX(`${API_URL}?search=${query}&key=${KEY}`);
+    console.log(data);
 
     //updating state
     state.search.query = query;
@@ -63,6 +66,7 @@ export const loadSearchResults = async function (query) {
         image: recipe.image_url,
         publisher: recipe.publisher,
         title: recipe.title,
+        ...(recipe.key && { key: recipe.key }),
       };
     });
   } catch (err) {
