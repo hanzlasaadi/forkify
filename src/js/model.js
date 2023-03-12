@@ -12,6 +12,20 @@ export const state = {
   bookmarks: [],
 };
 
+const getRecipeFormatted = function (data) {
+  const { recipe } = data.data;
+  return {
+    cookingTime: recipe.cooking_time,
+    id: recipe.id,
+    image: recipe.image_url,
+    publisher: recipe.publisher,
+    servings: recipe.servings,
+    sourceUrl: recipe.source_url,
+    title: recipe.title,
+    ingredients: recipe.ingredients,
+  };
+};
+
 export const loadRecipe = async function (id) {
   try {
     // const res = await fetch(`${API_URL}${id}`);
@@ -20,17 +34,7 @@ export const loadRecipe = async function (id) {
 
     const data = await getJson(`${API_URL}${id}`);
 
-    const { recipe } = data.data;
-    state.recipe = {
-      cookingTime: recipe.cooking_time,
-      id: recipe.id,
-      image: recipe.image_url,
-      publisher: recipe.publisher,
-      servings: recipe.servings,
-      sourceUrl: recipe.source_url,
-      title: recipe.title,
-      ingredients: recipe.ingredients,
-    };
+    state.recipe = getRecipeFormatted(data);
 
     //it checks the current recipe against the recipes in the bookmarks array and set the BOOKMARKED value to true.
     state.recipe.bookmarked = state.bookmarks.some(
