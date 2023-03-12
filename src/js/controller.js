@@ -107,11 +107,17 @@ const controlAddRecipe = async function (newRecipe) {
     //upload formData to API
     await model.uploadRecipe(newRecipe);
 
+    //render recipe
+    recipeView.render(model.state.recipe);
+
     //render success message
     addRecipeView.renderMsg('Recipe was loaded successfully! 😀');
 
-    //render recipe
-    recipeView.render(model.state.recipe);
+    //change hash / URL
+    window.history.pushState(null, '', `#${model.state.recipe.id}`);
+
+    //render bookmarks view
+    bookmarksView.render(model.state.bookmarks);
 
     //close window
     setTimeout(() => {
