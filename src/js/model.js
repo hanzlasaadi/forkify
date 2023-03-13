@@ -41,7 +41,6 @@ export const loadRecipe = async function (id) {
     state.recipe.bookmarked = state.bookmarks.some(
       bookmark => bookmark.id === id
     );
-    console.log(state.recipe.key);
   } catch (err) {
     // console.error(err, 'Model.js');
     throw err;
@@ -54,9 +53,7 @@ export const loadSearchResults = async function (query) {
     state.search.page = 1;
 
     // ajax call for search results
-    console.log(await getJson());
     const data = await AJAX(`${API_URL}?search=${query}&key=${KEY}`);
-    console.log(data);
 
     //updating state
     state.search.query = query;
