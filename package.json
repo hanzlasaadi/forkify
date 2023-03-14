@@ -5,8 +5,6 @@
   "source": "index.html",
   "scripts": {
     "start": "parcel index.html",
-    "predeploy": "rm -rf dist && parcel build index.html --public-url https://github.com/hanzlasaadi/forkify",
-    "deploy": "gh-pages -d dist",
     "build": "parcel build"
   },
   "author": "Hanzla Saadi",
