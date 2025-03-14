@@ -4,8 +4,8 @@ import icons from '../../img/icons.svg';
 
 class ResultsView extends View {
   _parentElement = document.querySelector('.results');
-  _errMsg =
-    'Fix your sausage fuckry fingers. Fuck your brain harder and write a valid one, you fucker!';
+  // _errMsg = 'Fix your sausage fuckry fingers. Fuck your brain harder and write a valid one, you fucker!';
+  _errMsg = 'Kindly fix your query & search again!';
   _okMsg = '';
 
   _markup() {
